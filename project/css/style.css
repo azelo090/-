@@ -1,0 +1,115 @@
+:root {
+    --bg-color: #f4f4f9;
+    --text-color: #333;
+    --accent-color: #2563eb;
+    --card-bg: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* Чек-лист 1: Каркас на grid-template-areas */
+.page {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+        "header header"
+        "sidebar main"
+        "footer footer";
+    gap: 16px;
+    min-height: 100vh;
+    padding: 16px;
+}
+
+.header { grid-area: header; background: var(--accent-color); color: white; padding: 16px; border-radius: 8px; }
+.sidebar { grid-area: sidebar; background: var(--card-bg); padding: 16px; border-radius: 8px; }
+.main { grid-area: main; }
+.footer { grid-area: footer; background: var(--text-color); color: white; padding: 16px; text-align: center; border-radius: 8px; }
+
+.header nav a {
+    color: white;
+    margin-right: 16px;
+    text-decoration: none;
+}
+
+.sidebar ul {
+    list-style: none;
+    margin-top: 16px;
+    /* Чек-лист 3: Выравнивание. Центрируем элементы списка по обеим осям для аккуратного вида */
+    display: grid;
+    place-items: center; 
+    gap: 12px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+/* Чек-лист 2: Сетка карточек на auto-fit + minmax */
+.catalog {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 16px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.card-featured {
+    grid-column: span 2;
+}
+
+.card-featured img {
+    height: 250px;
+}
+
+button {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+/* Мобильная версия: перестройка схемы без display: none */
+@media (max-width: 768px) {
+    .page {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "header"
+            "main"
+            "sidebar"
+            "footer";
+    }
+    
+    .card-featured {
+        grid-column: auto;
+    }
+}
